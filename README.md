@@ -1,6 +1,7 @@
 # Amazon_Face_Rekognition
 Use case example of face rekognition with an example
 
+## Architectural Flow
 ![awsrek](https://github.com/vijayaraghavanv/Amazon_Face_Rekognition/assets/25921640/4d778f20-0ca4-4131-96ce-340a2ad3e9ab)
 
 
