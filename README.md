@@ -16,24 +16,27 @@ aws configure
 ### :atom: Create a collection on aws rekognition
  :pushpin: Create a collection in aws rekognition. Below is the command to create a collection in amazon rekognition.
 ```
-aws rekognition create-collection --collection-id celebrities --region us-east-1
+aws rekognition create-collection --collection-id <collection_name> --region us-east-1
 ```
 
 ### :atom: Creation of an S3 Bucket
 :pushpin: Create an S3 bucket we can achieve this in either way through AWS Console or AWS CLI. In this example, Had created through an AWS CLI
 ```
-aws s3 mb s3://celebrity-images --region us-east-1
+aws s3 mb s3://<bucket_name> --region us-east-1
 ```
+![s3 bucket creation](https://github.com/vjraghavanv/Amazon_Rekognition/assets/25921640/48df40a5-9924-4f64-8586-2eefc46fe1d5)
 
 ### :atom: Creation of an DynamoDB Table
 :pushpin: Create a table with table name celebrity_recognition. We can create table either way through console or AWS CLI. In this example, Had created through an AWS CLI.
 ```
-aws dynamodb create-table --table-name celebrity_recognition \
+aws dynamodb create-table --table-name <table_name> \
 --attribute-definitions AttributeName=RekognitionId,AttributeType=S \
 --key-schema AttributeName=RekognitionId,KeyType=HASH \
 --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
 --region us-east-1
 ```
+![Dynamo DB](https://github.com/vjraghavanv/Amazon_Rekognition/assets/25921640/6c2459d4-026e-4462-9704-99b4ba43e547)
+
 ### :atom: Creation of new IAM role to access AWS Lambda, Dynamo DB and S3 bucket
 :pushpin: Go to IAM in management console, create a new role and name the role as aws_rekognition_role as below.
 
@@ -67,7 +70,7 @@ aws dynamodb create-table --table-name celebrity_recognition \
                 "dynamodb:PutItem"
             ],
             "Resource": [
-                "arn:aws:dynamodb:aws-region:account-id:table/family_collection"
+                "arn:aws:dynamodb:aws-region:account-id:table/table_name"
             ]
         },
         {
@@ -79,6 +82,9 @@ aws dynamodb create-table --table-name celebrity_recognition \
         }
     ]
 }
+
+![AWS Role](https://github.com/vjraghavanv/Amazon_Rekognition/assets/25921640/0a6d292b-5f34-479c-b102-1f83cade490d)
+
 ```
 :pushpin: Give the policy name as aws_rekognition_policy and click on create policy. Attach this policy to the new role created.
 
@@ -86,8 +92,12 @@ aws dynamodb create-table --table-name celebrity_recognition \
 :pushpin: Go to AWS Lambda in management console and create the new function called aws_rekognition_lambda. 
 Use the existing role which we created aws_rekognition_role. Click on create function.
 
+![AWS Lambda](https://github.com/vjraghavanv/Amazon_Rekognition/assets/25921640/0b13a815-74b4-4d7b-8148-d0fb0e68b7c0)
+
+
 ### :atom: Setting up an trigger to the lambda function
 :pushpin: Go to configuration tab, click on triggers and click add trigger. Search for an S3 Bucket, give the bucket name as sportsperson-images. Event type as All object create events, give the prefix as index/. Click on the check box and add the trigger as below
+![s3 trigger](https://github.com/vjraghavanv/Amazon_Rekognition/assets/25921640/6e34c442-52b8-4a74-b65f-2766fb85e346)
 
 ### :atom: Adding lambda function code in AWS Lambda
 :pushpin: Go to code tab, replace the lambda_function.py with below code.
