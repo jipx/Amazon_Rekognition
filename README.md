@@ -29,11 +29,8 @@ aws s3 mb s3://<bucket_name> --region us-east-1
 ### :atom: Creation of an DynamoDB Table
 :pushpin: Create a table with table name celebrity_recognition. We can create table either way through console or AWS CLI. In this example, Had created through an AWS CLI.
 ```
-aws dynamodb create-table --table-name <table_name> \
---attribute-definitions AttributeName=RekognitionId,AttributeType=S \
---key-schema AttributeName=RekognitionId,KeyType=HASH \
---provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
---region us-east-1
+
+aws dynamodb create-table --table-name <table_name> --attribute-definitions AttributeName=RekognitionId,AttributeType=S --key-schema AttributeName=RekognitionId,KeyType=HASH --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 --region us-east-1
 ```
 ![Dynamo DB](https://github.com/vjraghavanv/Amazon_Rekognition/assets/25921640/6c2459d4-026e-4462-9704-99b4ba43e547)
 
