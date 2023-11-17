@@ -121,7 +121,7 @@ def index_faces(bucket, key):
         Image={"S3Object":
             {"Bucket": bucket,
             "Name": key}},
-            CollectionId="celebrities")
+            CollectionId="<collection_id_name>")
     return response
     
 def update_index(tableName,faceId, fullName):
@@ -160,7 +160,7 @@ def lambda_handler(event, context):
             ret = s3.head_object(Bucket=bucket,Key=key)
             personFullName = ret['Metadata']['fullname']
 
-            update_index('celebrity_recognition',faceId,personFullName)
+            update_index('<table_name>',faceId,personFullName)
 
         # Print response to console
         print(response)
@@ -191,7 +191,7 @@ images=[('image1.jpg','M S Dhoni'),
 # Iterate through list to upload objects to S3   
 for image in images:
     file = open(image[0],'rb')
-    object = s3.Object('sportsperson-images','index/'+ image[0])
+    object = s3.Object('<s3_bucket_name>','index/'+ image[0])
     ret = object.put(Body=file,
                     Metadata={'FullName':image[1]})
 ```
@@ -224,7 +224,7 @@ image.save(stream,format="JPEG")
 image_binary = stream.getvalue()
 
 response = rekognition.search_faces_by_image(
-        CollectionId='celebrities',
+        CollectionId='<collection_id_name>',
         Image={'Bytes':image_binary}                                       
         )
 
@@ -233,7 +233,7 @@ for match in response['FaceMatches']:
     print (match['Face']['FaceId'],match['Face']['Confidence'])
         
     face = dynamodb.get_item(
-        TableName='celebrity_recognition',  
+        TableName='<dynamo_table_name>',  
         Key={'RekognitionId': {'S': match['Face']['FaceId']}}
         )
     
