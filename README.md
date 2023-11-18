@@ -80,8 +80,6 @@ aws dynamodb create-table --table-name <table_name> --attribute-definitions Attr
     ]
 }
 
-![AWS Role](https://github.com/vjraghavanv/Amazon_Rekognition/assets/25921640/0a6d292b-5f34-479c-b102-1f83cade490d)
-
 ```
 :pushpin: Give the policy name as aws_rekognition_policy and click on create policy. Attach this policy to the new role created.
 
