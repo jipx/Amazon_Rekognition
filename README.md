@@ -247,7 +247,7 @@ if not found:
 
 :recycle: Delete the collection created using the following command
 ```
-aws rekognition delete-collection --collection-id celebrities
+aws rekognition delete-collection --collection-id collection_name
 ```
 :recycle: Delete an S3 bucket created through AWS Console after the deleting the images
 
